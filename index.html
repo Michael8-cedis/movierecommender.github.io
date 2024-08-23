@@ -1,2 +1,126 @@
 
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Recommender System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: black;
+            color: white;
+            padding: 20px;
+        }
+        h1, h2 {
+            text-align: center;
+            color: yellow;
+        }
+        .form-container {
+            max-width: 600px;
+            margin: auto;
+            background-color: #333;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .form-container input, .form-container button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+        }
+        .form-container button {
+            background-color: #2196F3;
+            color: white;
+            cursor: pointer;
+        }
+        .message {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 18px;
+            color: #4CAF50;
+        }
+        .error {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 18px;
+            color: #f44336;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome to the Movie Recommender System</h1>
+
+    {% if message %}
+        <div class="message">{{ message }}</div>
+    {% endif %}
+
+    <div class="form-container">
+        <h2>New Users</h2>
+        <form action="/generate_userid" method="POST">
+            <input type="text" name="name" placeholder="Your Name" required>
+            <input type="text" name="username" placeholder="Your New Username" pattern="[A-Za-z0-9]+" required>
+            <select name="genre_id" required>
+                <option value="" disabled selected>Select a Genre</option>
+                <option value="28">Action</option>
+                <option value="12">Adventure</option>
+                <option value="16">Animation</option>
+                <option value="35">Comedy</option>
+                <option value="80">Crime</option>
+                <option value="99">Documentary</option>
+                <option value="18">Drama</option>
+                <option value="10751">Family</option>
+                <option value="14">Fantasy</option>
+                <option value="36">History</option>
+                <option value="27">Horror</option>
+                <option value="10402">Music</option>
+                <option value="9648">Mystery</option>
+                <option value="10749">Romance</option>
+                <option value="878">Science Fiction</option>
+                <option value="53">Thriller</option>
+                <option value="10770">TV Movie</option>
+                <option value="10752">War</option>
+                <option value="37">Western</option>
+            </select>
+            <select name="sort_by" required>
+                <option value="popularity.desc">Most Popular</option>
+                <option value="vote_average.desc">Highest Rated</option>
+                <option value="release_date.desc">Newest Releases</option>
+                <option value="view_count.desc">Most Watched</option>
+                <option value="budget.desc">Highest Budget</option>
+                <option value="critic_score.desc">Critics' Choice</option>
+            </select>
+            <input type="number" name="year" placeholder="Year (optional)">
+            <input type="number" name="num_recommendations" placeholder="Number of Recommendations" required>
+            <button type="submit">Generate UserID and Get Recommendations</button>
+        </form>
+    </div>
+
+    <div class="form-container">
+        <h2>Existing Users</h2>
+        <form action="/recommend" method="POST">
+            <input type="number" name="user_id" placeholder="Your User ID" required>
+            <button type="submit">Access Your Recommendations</button>
+        </form>
+    </div>
+
+    <div class="form-container">
+        <h2>Retrieve User ID</h2>
+        <form action="/retrieve_userid" method="POST">
+            <input type="text" name="username" placeholder="Username" required>
+            <button type="submit">Retrieve User ID</button>
+        </form>
+    </div>
+
+    <div class="form-container">
+        <h2>Search Movies</h2>
+        <form action="/search" method="POST">
+            <input type="text" name="search_query" placeholder="Search for Movies" required>
+            <button type="submit">Search</button>
+        </form>
+    </div>
+</body>
+</html>
